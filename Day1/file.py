@@ -1,3 +1,4 @@
+import re
 
 numDict = {
     'one': 1,
@@ -21,25 +22,27 @@ numDict = {
     '0': 0
 }
 
+class pair:
+    def __init__(self, word, index):
+        self.word = word
+        self.index = index
 
 
 def convertWordToNum(line):
-    tempDict = {}
+    listadd = []
     for key in numDict:
-        idx = line.find(key)
-        if idx > -1:
-            tempDict[key] = idx
-    dicttemp = sorted(tempDict.items(), key=lambda x:x[1])
-    dicttemp = dict(dicttemp)
+        for i in re.finditer(key, line):
+            listadd.append(pair(key, i.start()))   
+
+    listadd = sorted(listadd, key=lambda x: x.index)
     tempstr = ''
-    for key in dicttemp:
-        tempstr += str(numDict[key])
+    for pr in listadd:
+        tempstr += str(numDict.get(pr.word))
     return tempstr
 
 # Actual logic goes here
 def calculate(line):
     line = convertWordToNum(line)
-    print(line)
     i = 0
     j = len(line) - 1
     result = 0
