@@ -42,7 +42,7 @@ def convertWordToNum(line):
 
 # Actual logic goes here
 def calculate(line):
-    line = convertWordToNum(line)
+    line = convertWordToNum(line) # part 2
     i = 0
     j = len(line) - 1
     result = 0
